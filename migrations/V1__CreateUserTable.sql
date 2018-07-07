@@ -8,35 +8,40 @@ START TRANSACTION;
 
 CREATE TABLE lms."User"
 (
-  userId INT NOT NULL,
+  userid SERIAL,
     CONSTRAINT PK_user_userId PRIMARY KEY (userId),
-  firstName VARCHAR(50) NOT NULL,
-  lastName VARCHAR(50) NOT NULL,
-  authId UUID NOT NULL
+  firstname VARCHAR(50) NOT NULL,
+  lastname VARCHAR(50) NOT NULL,
+  authid UUID NOT NULL
 );
 
 CREATE TABLE lms."Class"
 (
-  classId INT NOT NULL,
+  classid SERIAL,
     CONSTRAINT PK_class_classId PRIMARY KEY (classId),
-  className VARCHAR(50) NOT NULL,
-  classDescription VARCHAR(250) NOT NULL
+  classname VARCHAR(50) NOT NULL,
+  classdescription VARCHAR(250) NOT NULL
 );
 
 CREATE TABLE lms."Role"
 (
-  roleId INT NOT NULL,
+  roleid SERIAL,
   CONSTRAINT PK_role_roleId PRIMARY KEY (roleId),
-  roleDescription VARCHAR(50) NOT NULL
+  roledescription VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE lms."UserClass"
 (
-  userId INT NOT NULL,
-  classId INT NOT NULL,
-  roleId INT NOT NULL,
+  userid INT NOT NULL,
+  classid INT NOT NULL,
+  roleid INT NOT NULL,
   CONSTRAINT UC_userclass_user_class_role UNIQUE (userId, classId, roleId)
 );
+
+REVOKE ALL ON TABLE lms."User" FROM PUBLIC;
+REVOKE ALL ON TABLE lms."Class" FROM PUBLIC;
+REVOKE ALL ON TABLE lms."Role" FROM PUBLIC;
+REVOKE ALL ON TABLE lms."UserClass" FROM PUBLIC;
 
 -- ROLLBACK;
 COMMIT;
